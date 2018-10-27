@@ -1,0 +1,5 @@
+{
+	"BOOKINGS_CONTRACT_ADDRESS": "0xefe646c7e519402ca41a516210308cbda867c6a9",
+	"WEB3_PROVIDER": "http://localhost:8545",
+	"NETWORK_ID": "ropsten"
+}

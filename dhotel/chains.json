@@ -1,0 +1,26 @@
+{
+  "0xfb29052b486b8f06e540106af7ee01b9c3e365404b70d7beab0dd7306433ba44": {
+    "contracts": {
+      "0x3043b04ad856d169c8f0b0509c0bc63192dc7edd92d6933c58708298a0e381be": {
+        "name": "ENSRegistry",
+        "address": "0x610c487f042D8e66fd339eBBc33f87cE86e4175B"
+      },
+      "0x2f4034037f6dbd36bdd79d3d72aa10f4058163475ef8613a69aa775047ca768e": {
+        "name": "Resolver",
+        "address": "0xaB39B89084E45f8AA513Bb82AbAD4c7c295E9295"
+      },
+      "0x02204028529c9cd119bc3bc9535d68edcb0a2bda83127c4e0a793106aa717576": {
+        "name": "FIFSRegistrar",
+        "address": "0xAbf427567fA18cA54a1855bA9716E002Fab100de"
+      },
+      "0xebdcc7c5e12fac0a70da0f66dc3d57abc9790d80b3a137662108e8b3d592a9ac": {
+        "name": "DateTime",
+        "address": "0xE26297143429C44B25686FaB0fC4728324ff4ebF"
+      },
+      "0x078cc4e06e31d348009f9db0067c0a88d06f09f0d273dfb6a7ca74d0438ea9b2": {
+        "name": "Bookings",
+        "address": "0x5Ee92EEAd774614fba6bB0FFB9783Fcc4e899692"
+      }
+    }
+  }
+}
