@@ -32,7 +32,7 @@ class DoorSimulator extends React.Component {
 				profile: "audible",
 				// profile: "ultrasonic-experimental",
 				onReceive: payload => this.gotPayload(Quiet.ab2str(payload)),
-				onCreateFail: reason => console.error("failed to create quiet receiver: " + reason),
+				onCreateFail: reason => console.error("Failed to create quiet receiver: " + reason),
 				onReceiveFail: () => console.error("RCV FAIL")
 			});
 
@@ -40,12 +40,12 @@ class DoorSimulator extends React.Component {
 			const transmit = Quiet.transmitter({
 				profile: "audible",
 				// profile: "ultrasonic-experimental",
-				onFinish: () => console.log("sent"),
+				// onFinish: () => console.log("sent"),
 				clampFrame: false
 			});
 
 			setTimeout(() => {
-				const text = "WELCOME TO DHOTEL"
+				const text = "WELCOME TO DAPPARTMENT"
 				transmit.transmit(Quiet.str2ab(text));
 			}, 1800)
 		}, err => {
@@ -65,6 +65,9 @@ class DoorSimulator extends React.Component {
 	checkPayload(payload) {
 		try {
 			payload = JSON.parse(payload)
+			console.log(`RECEIVED ${payload.timestamp}`)
+			console.log(`SIGNED AS ${payload.signature}`)
+			console.log("Recovering...")
 			if (payload && payload.signature && payload.timestamp) {
 				this.verifySignature(payload.signature, payload.timestamp)
 			}
@@ -72,7 +75,7 @@ class DoorSimulator extends React.Component {
 		catch (err) {
 			this.setState({ open: false, receivedPayload: "", readError: "Unable to parse the response" })
 			setTimeout(() => this.setState({ readError: null }), 4000)
-			console.error("There was an error while parsing the response", payload)
+			console.error("Unable to parse the response", payload)
 		}
 	}
 
@@ -89,11 +92,11 @@ class DoorSimulator extends React.Component {
 		const hashedTimestamp = web3.utils.sha3(fixed_msg)
 
 		// decode address
-		Validator.methods.verify(r, s, v_decimal, hashedTimestamp).call()
+		return Validator.methods.verify(r, s, v_decimal, hashedTimestamp).call()
 			.then(signerPublicKey => {
 				// get the checked in guest
-				console.log("RECEIVED", signerPublicKey)
-				console.log("SERVER", serverPublicKey)
+				console.log("SIGNED BY", signerPublicKey.toLowerCase())
+				console.log("EXPECTED", serverPublicKey)
 
 				if (!signerPublicKey || !signerPublicKey.toLowerCase || signerPublicKey == "0x0") {
 					this.setState({ open: false, receivedPayload: "", readError: "The signature is not recognized" })
@@ -117,7 +120,7 @@ class DoorSimulator extends React.Component {
 			})
 			.catch(err => {
 				this.setState({ open: false, receivedPayload: "", readError: "Unable to verify the signature" })
-				setTimeout(() => this.setState({ readError: nul }), 4000)
+				setTimeout(() => this.setState({ readError: null }), 4000)
 				console.error("There was en error while validating the server signature")
 			})
 	}

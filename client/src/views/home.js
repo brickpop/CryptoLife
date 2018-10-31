@@ -151,17 +151,16 @@ class HomeView extends Component {
 				cover={<img alt="Welcome" src={require("../media/hotel2.jpeg")} />}
 				className="margin-bottom">
 				<p>Choose the date you'd like to book</p>
+				{
+					this.state.bookingLoading ?
+						<p>Please wait... <Spin /></p> : null
+				}
 				<DatePicker className="width-100" onChange={value => this.datePicked(value)} />
 			</Card>
 
 			{
 				this.state.selectedDate && (!this.state.bookingLoading) ?
 					<Button type="primary" size="large" className="width-100" onClick={() => this.onBookRoom()}>Book now</Button> : null
-			}
-
-			{
-				this.state.bookingLoading ?
-					<p className="margin-top white">Please wait... <Spin /></p> : null
 			}
 		</div>
 	}

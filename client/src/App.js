@@ -69,7 +69,7 @@ class App extends Component {
     }
 
     render() {
-        if (this.props.status.loading) return <Container><LoadingView /></Container>
+        if (this.props.status.loading) return <LoadingView />
         else if (this.props.status.unsupported) return <MessageView message="Your browser does not support Web3" />
         else if (this.props.status.networkId != config.NETWORK_ID) return <MessageView message={`Please, switch to the ${config.NETWORK_ID} network`} />
         else if (!this.props.status.connected) return <MessageView message="Your connection seems to be down" />
@@ -77,7 +77,7 @@ class App extends Component {
 
         return <div>
             <Header className="header">
-                <h2 className="text-center" style={{ color: "white" }}>DHotel</h2>
+                <h2 className="text-center white">dAppartment</h2>
             </Header>
             <Container xs={400} sm={400} md={440} lg={470}>
                 <Switch>

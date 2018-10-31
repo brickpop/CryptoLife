@@ -22,6 +22,9 @@ body {
 .margin-bottom {
 	margin-bottom: 15px;
 }
+.white {
+	color: #eee;
+}
 
 .ant-layout-header {
 	background: #eeec !important;

@@ -28,7 +28,7 @@ class RoomView extends Component {
 			this.transmit = Quiet.transmitter({
 				profile: "audible",
 				// profile: "ultrasonic-experimental",
-				onFinish: () => console.log("sent"),
+				onFinish: () => console.log("Sent"),
 				clampFrame: false
 			})
 		}, err => {
@@ -99,8 +99,6 @@ class RoomView extends Component {
 		web3.eth.getAccounts()
 			.then(accounts => {
 				return new Promise((resolve) => {
-					// whchever works
-					// web3.eth.sign('0x' + toHex(timestamp), accounts[0]).then(resolve)
 					web3.eth.personal.sign('0x' + toHex(timestamp), accounts[0]).then(resolve)
 				})
 			})
@@ -139,17 +137,27 @@ class RoomView extends Component {
 	renderCheckIn() {
 		return <div>
 			<Card>
-				You may check in now
+				<h3>Check-in desk</h3>
+				{
+					this.state.loading ?
+						[<p>Please wait...</p>, <Spin />] :
+						<p>You may check in now</p>
+				}
 			</Card>
 			<Button type="primary" size="large" className="width-100 margin-top" onClick={() => this.onCheckIn()}>Check in</Button>
-			<Button size="large" className="width-100 margin-top" onClick={() => this.props.history.goBack()}>Go back</Button>
+			<Button size="large" className="width-100 margin-top" onClick={() => this.props.history.push("/")}>Go back</Button>
 		</div>
 	}
 
 	renderAccessCheckout() {
 		return <div>
 			<Card>
-				You are checked in to the room
+				<h3>Room access</h3>
+				{
+					this.state.loading ?
+						[<p className="margin-top">Please wait... </p>, <Spin />] :
+						<p>You are checked in to the room</p>
+				}
 			</Card>
 			{
 				this.state.emittablePayload ?
@@ -157,13 +165,13 @@ class RoomView extends Component {
 					<Button size="large" type="primary" className="width-100 margin-top" onClick={() => this.onOpen()}>Unlock the door</Button>
 			}
 			<Button size="large" type="danger" className="width-100 margin-top" onClick={() => this.onCheckOut()}>Check Out</Button>
-			<Button size="large" className="width-100 margin-top" onClick={() => this.props.history.goBack()}>Go back</Button>
+			<Button size="large" className="width-100 margin-top" onClick={() => this.props.history.push("/")}>Go back</Button>
 		</div>
 	}
 
 	renderStale() {
 		return <div>
-			<Button size="large" className="width-100" onClick={() => this.props.history.goBack()}>Go back</Button>
+			<Button size="large" className="width-100" onClick={() => this.props.history.push("/")}>Go back</Button>
 		</div>
 	}
 
@@ -175,19 +183,8 @@ class RoomView extends Component {
 
 	render() {
 		return <div id="room">
-			<Row>
-				<Col>
-					<p className="margin-top white">Welcome to the check-in desk</p>
-				</Col>
-			</Row>
-
 			{
 				this.renderBody()
-			}
-
-			{
-				this.state.loading ?
-					<p className="margin-top white">Please wait... <Spin /></p> : null
 			}
 		</div>
 	}
