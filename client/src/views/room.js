@@ -66,6 +66,7 @@ class RoomView extends Component {
 
 				message.success("Your room is ready! Do you want to get in?")
 				this.fetchCanCheckIn()
+				this.fetchCanCheckOut()
 			}).catch(err => {
 				this.setState({ loading: false })
 				message.warn("The transaction could not be completed")
