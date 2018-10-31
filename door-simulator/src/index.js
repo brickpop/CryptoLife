@@ -1,13 +1,12 @@
 import React from "react"
 import ReactDOM from "react-dom"
 
-import getBookingsInstance from "../../client/src/contracts/bookings.js"
 import getValidatorInstance from "../../client/src/contracts/validator.js"
 
+const mainNetValidatorAddress = "0x9bd7a73263e1994813fedd0624d243372927b4f8"
 const serverPublicKey = "0xbda352aeb022a1d8e847ee6372795d02dcbf53f8"
 
-// const Bookings = getBookingsInstance()
-const Validator = getValidatorInstance()
+const Validator = getValidatorInstance(mainNetValidatorAddress)
 
 class DoorSimulator extends React.Component {
 	constructor(props) {
@@ -15,7 +14,7 @@ class DoorSimulator extends React.Component {
 
 		this.state = {
 			open: false,
-			readError: false,
+			readError: null, // string if any
 			receivedPayload: ""
 		}
 
@@ -71,8 +70,8 @@ class DoorSimulator extends React.Component {
 			}
 		}
 		catch (err) {
-			this.setState({ open: false, receivedPayload: "", readError: true })
-			setTimeout(() => this.setState({readError: false}), 4000)
+			this.setState({ open: false, receivedPayload: "", readError: "Unable to parse the response" })
+			setTimeout(() => this.setState({ readError: null }), 4000)
 			console.error("There was an error while parsing the response", payload)
 		}
 	}
@@ -97,15 +96,15 @@ class DoorSimulator extends React.Component {
 				console.log("SERVER", serverPublicKey)
 
 				if (!signerPublicKey || !signerPublicKey.toLowerCase || signerPublicKey == "0x0") {
-					this.setState({ open: false, receivedPayload: "", readError: true })
-					setTimeout(() => this.setState({readError: false}), 4000)
+					this.setState({ open: false, receivedPayload: "", readError: "The signature is not recognized" })
+					setTimeout(() => this.setState({ readError: null }), 4000)
 					return alert("Invalid signature")
 				}
 
 				// compare address with blockchain data
 				if (signerPublicKey.toLowerCase() != serverPublicKey.toLowerCase()) {
-					this.setState({ open: false, receivedPayload: "", readError: true })
-					setTimeout(() => this.setState({readError: false}), 4000)
+					this.setState({ open: false, receivedPayload: "", readError: "The signature is not recognized" })
+					setTimeout(() => this.setState({ readError: null }), 4000)
 					return alert("Invalid signature")
 				}
 
@@ -117,22 +116,33 @@ class DoorSimulator extends React.Component {
 				}, 5000)
 			})
 			.catch(err => {
-				this.setState({ open: false, receivedPayload: "", readError: true })
-				setTimeout(() => this.setState({readError: false}), 4000)
+				this.setState({ open: false, receivedPayload: "", readError: "Unable to verify the signature" })
+				setTimeout(() => this.setState({ readError: nul }), 4000)
 				console.error("There was en error while validating the server signature")
 			})
 	}
 
+	renderError() {
+		return <div className="container">
+			<h1>Door simulator</h1>
+			<h2>The payload could not be fully decoded</h2>
+
+			<div className="status-box">{this.state.readError}</div>
+		</div>
+	}
+
+	renderStatus() {
+		return <div className="container">
+			<h1>Door simulator</h1>
+			<h2>The door is currently</h2>
+
+			<div className="status-box">{this.state.open ? "OPEN" : "CLOSED"}</div>
+		</div>
+	}
+
 	render() {
 		return <div id="main" className={this.state.readError ? "door-error" : (this.state.open ? "door-open" : "door-closed")}>
-			<div>
-				<h1>Door simulator</h1>
-				{
-					this.state.readError ?
-					<h2>The payload could not be fully decoded</h2> :
-						<h2>The door is currently {this.state.open ? "open" : "closed"}</h2>
-				}
-			</div>
+			{this.state.readError ? this.renderError() : this.renderStatus()}
 		</div>
 	}
 }
