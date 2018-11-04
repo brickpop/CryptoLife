@@ -1,10 +1,10 @@
 {
-  "name": "fake-door",
+  "name": "dappartment-door-simulator",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,8 @@
     "express": "^4.16.4",
     "serve-static": "^1.13.2",
     "web3": "^1.0.0-beta.36"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
   }
 }

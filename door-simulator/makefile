@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := info
-.PHONY: info build
+.PHONY: info build clean
 
 PATH  := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
@@ -11,13 +11,13 @@ SHELL := /bin/bash
 info:
 	@echo "Available actions:"
 	@echo
-	@echo "  $$ run         Runs 'run info' by default"
-	@echo "  $$ run info    Shows this text"
+	@echo "  $$ make         Runs 'make info' by default"
+	@echo "  $$ make info    Shows this text"
 	@echo
-	@echo "  $$ run init    Install dependencies"
-	@echo "  $$ run build   Compile assets"
-	@echo "  $$ run www     Serve a production build"
-	@echo "  $$ run dev     Debug locally"
+	@echo "  $$ make init    Install dependencies"
+	@echo "  $$ make dev     Debug locally"
+	@echo "  $$ make build   Compile assets"
+	@echo "  $$ make run     Serve a production build"
 	@echo
 
 ###############################################################################
@@ -26,26 +26,28 @@ info:
 
 init:
 	@if [ -x $(which sudo) ] ;\
-  then sudo npm i -g parcel-bundler ;\
-  else npm i -g parcel-bundler ;\
-  fi
-	yarn || npm i
+	then sudo npm i -g parcel-bundler ;\
+	else npm i -g parcel-bundler ;\
+	fi
+	@mkdir -p build
+	@yarn || npm i
 
 build:
 	@echo "Cleaning the build folder"
-	rm ./build/*
+	@make clean
 	@echo "Bundling the web site"
-	@mkdir -p build
 	@cp src/lib/quiet* build
 	NODE_ENV=production parcel build -d ./build --log-level 2 --no-source-maps --public-url ./ src/index.html
 
-www: build
-	@mkdir -p build
-	@cp src/lib/quiet* build
-	serve build -p 1234
+run: build
+	serve ./build -p 6000
 
 dev:
 	@echo "Running..."
 	@mkdir -p build
 	@cp src/lib/quiet* build
-	NODE_ENV=development parcel -d ./build src/index.html
+	NODE_ENV=development parcel -d ./build -p 6000 src/index.html
+
+clean:
+	@rm -Rf ./build
+	@mkdir -p ./build

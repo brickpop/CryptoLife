@@ -36,7 +36,7 @@ async function deployDapp() {
 		const libPattern = /__.\/contracts\/DateTime.sol:DateTime[_]+/g
 		const linkedBookingsBytecode = bookingsBytecode.replace(libPattern, dateTimeAddress.substr(2))
 		if (linkedBookingsBytecode.length != bookingsBytecode.length) {
-				throw new Error("The linked contract size does not match the original")
+			throw new Error("The linked contract size does not match the original")
 		}
 
 		console.log("Deploying Bookings...")

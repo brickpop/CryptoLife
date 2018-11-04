@@ -1,10 +1,9 @@
 {
-  "name": "ledfusion-dhotel-door-auth",
+  "name": "dappartment",
   "version": "1.0.0",
-  "description": "## Blockchain",
-  "main": "fake-door/index.js",
+  "description": "Dappartment",
   "scripts": {
-    "postinstall": "cd door-server ; npm install",
+    "postinstall": "make init ; make all",
     "start": "node door-server/server.js"
   },
   "repository": {
@@ -17,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/ledfusion/CryptoLife/issues"
   },
-  "homepage": "https://github.com/ledfusion/CryptoLife#readme"
+  "homepage": "https://github.com/ledfusion/CryptoLife#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0"
+  }
 }

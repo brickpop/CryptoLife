@@ -11,13 +11,14 @@ SHELL := /bin/bash
 info:
 	@echo "Available actions:"
 	@echo
-	@echo "  $$ run         Runs 'run info' by default"
-	@echo "  $$ run info    Shows this text"
-	@echo "  $$ run init    Install dependencies"
+	@echo "  $$ make         Runs 'make info' by default"
+	@echo "  $$ make info    Shows this text"
+	@echo "  $$ make init    Install dependencies"
 	@echo
-	@echo "  $$ run test    Run the test suite"
-	@echo "  $$ run build   Compile the contracts"
-	@echo "  $$ run deploy  Deploy locally"
+	@echo "  $$ make test    Run the test suite on Truffle"
+	@echo "  $$ make build   Compile the contracts"
+	@echo "  $$ make deploy  Deploy locally"
+	@echo "  $$ make clean   Clean all artifacts"
 	@echo
 
 ###############################################################################
@@ -25,8 +26,13 @@ info:
 ###############################################################################
 
 init:
-	sudo npm install -g truffle solc ganache-cli
-	cd scripts ; npm install
+	@echo "Installing the Smart Contract dependencies..."
+	@if [ -x $(which sudo) ] ;\
+	then sudo npm install -g truffle solc ganache-cli ;\
+	else npm install -g truffle solc ganache-cli ;\
+	fi
+	@mkdir -p build
+	@cd scripts ; (yarn || npm install)
 
 test:
 	truffle test
@@ -36,3 +42,6 @@ build:
 
 deploy: build
 	node scripts/deploy
+
+clean:
+	@rm -Rf ./build/*

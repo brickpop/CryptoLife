@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := info
-.PHONY: info dev
+.PHONY: info init
 
 PATH  := node_modules/.bin:$(PATH)
 SHELL := /bin/bash
@@ -12,12 +12,11 @@ info:
 	@echo "Available actions:"
 	@echo
 	@echo "  $$ make         Runs 'make info' by default"
-	@echo "  $$ make info    Shows this text"
-	@echo "  $$ make init    Install dependencies"
+	@echo "  $$ make info    Shows this help message"
 	@echo
-	@echo "  $$ make dev     Start the server for development"
-	@echo "  $$ make run     Start the server"
-	@echo "  $$ make deploy  Deploy to Heroku"
+	@echo "  $$ make init    Install all dependencies"
+	@echo "  $$ make all     Build all components"
+	@echo "  $$ make clean   Clean all artifacts"
 	@echo
 
 ###############################################################################
@@ -25,16 +24,17 @@ info:
 ###############################################################################
 
 init:
-	@yarn || npm install
+	@cd blockchain ; make init
+	@cd client ; make init
+	@cd door-server ; make init
+	@cd door-simulator ; make init
 
-dev: 
-	@PORT=7000 nodemon server
+all: 
+	@cd blockchain ; make build
+	@cd client ; make build
+	@cd door-simulator ; make build
 
-run:
-	@if [ ! -f "../blockchain/build/__contracts_Bookings_sol_Bookings.abi" ] ;\
-	then cd ../blockchain ; make build ;\
-	fi
-	@PORT=7000 node server
-
-deploy:
-	@git push heroku master
+clean:
+	@cd blockchain ; make clean
+	@cd client ; make clean
+	@cd door-simulator ; make clean

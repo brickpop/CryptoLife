@@ -9,5 +9,8 @@
   "dependencies": {
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.7"
   }
 }
