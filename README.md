@@ -120,6 +120,7 @@ An instance from the Main Net is available at: `0x9bd7a73263e1994813fedd0624d243
 * Single person hackathon team, everything is a best effort
 
 ## Whishlist
+* Use a standalone version of `ecrecover`: https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/index.md#ecrecover
 * Optimize the storage variables and callable methods from the contract
 * Ensure that contracts are recompiled when the servers are started
 * Account for a more detailed casuistry
