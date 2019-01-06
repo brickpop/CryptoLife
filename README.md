@@ -1,6 +1,6 @@
 # Dappartment
 
-**Dappartment** is a project developed by [Jordi Moraleda](https://www.github.com/ledfusion) at the [Status.im](https://status.im/) [Hackathon 2018](https://hackathon.status.im/#), awarded with the first prize in the Travel Track of the contest. 
+**Dappartment** (originally DHotel) is a project developed by [Jordi Moraleda](https://www.github.com/ledfusion) at the [Status.im](https://status.im/) Hackathon 2018, [awarded with the **first prize** in the Travel Track](https://our.status.im/cryptolife-winners-round-up/#travel-track) of the contest. 
 
 Dappartment features a set of components that empower a **decentralized reservation system** running on the Ethereum Blockchain. At the same time, it allows checked-in users to **unlock their rooms with the speaker of the smartphone**. 
 
@@ -13,20 +13,20 @@ The project is made of four building blocks:
 
 ## Complete use-case
 
-1. A customer books a room with the mobile Dapp client
+1. A customer **books a room** with the mobile Dapp client
 	- An amount of ether is held in the smart contract
 	- The booking can be canceled for free until a given date
-2. The user eventually checks in
+2. The user eventually **checks in**
 	- The hotel receives the money locked in the smart contract
 	- The smart contract flags the user as the current guest
-3. The user requests access to the room
+3. The user **requests access** to the room
 	- The mobile Dapp signs an off-chain transaction to the access control server
 	- The server checks the current guest on the blockchain
 	- If the request signer matches the current guest on the blockchain, the server signs a timestamp with its own key
 4. The mobile client receives the signed timestamp
-	- The phone uses the speaker to emit the payload from the server
-	- The door locker receives the payload with a microphone
-	- If the signed timestamp matches the expected publis key of the access control server, the door opens
+	- The phone **uses the speaker to emit** the payload from the server
+	- The door locker receives the payload with a **microphone**
+	- If the signed timestamp matches the expected public key of the access control server, the door opens
 
 Steps #1 and #2 involve blockchain transactions, while steps #3 and #4 are entirely off-chain. 
 
@@ -120,6 +120,7 @@ An instance from the Main Net is available at: `0x9bd7a73263e1994813fedd0624d243
 * Single person hackathon team, everything is a best effort
 
 ## Whishlist
+* Run the Door Simulator on a Raspberry Pi tied to a physical locker
 * Use a standalone version of `ecrecover`: https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/index.md#ecrecover
 * Optimize the storage variables and callable methods from the contract
 * Ensure that contracts are recompiled when the servers are started
