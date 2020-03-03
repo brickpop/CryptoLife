@@ -1,6 +1,6 @@
 # Dappartment
 
-**Dappartment** (originally DHotel) is a project developed by [@ledfusion](https://www.github.com/ledfusion) at the [Status.im](https://status.im/) Hackathon 2018, [awarded with the **first prize**](https://our.status.im/cryptolife-winners-round-up/#travel-track) [in the Travel Track](https://gitcoin.co/kudos/157/status_hackathon_2018_travel_track_first_prize) of the contest. 
+**Dappartment** (originally DHotel) is the project submitted at the [Status.im](https://status.im/) Hackathon 2018, [awarded with the **first prize**](https://our.status.im/cryptolife-winners-round-up/#travel-track) [in the Travel Track](https://gitcoin.co/kudos/157/status_hackathon_2018_travel_track_first_prize) of the contest. 
 
 Dappartment features a set of components that empower a **decentralized reservation system** running on the Ethereum Blockchain. At the same time, it allows checked-in users to **unlock their rooms with the speaker of the smartphone**. 
 
